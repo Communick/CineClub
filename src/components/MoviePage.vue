@@ -1,7 +1,9 @@
 <template>
   <div id="moviepage">
-    <div id="moviebox" class="movie-grid">
-      <!--show all movies in variable "movies" using a for loop--> 
+    <div v-if="movies.length === 0"> <!-- if no movies are found, display a message -->
+      <p>No movies found</p>
+    </div>
+    <div v-else id="moviebox" class="movie-grid">
       <MovieBox
         v-for="movie in movies" 
         :key="movie.id"
@@ -10,36 +12,25 @@
         :description="movie.description"
         :rating="movie.rating"
         :longdescription="movie.longdescription"
-      /> <!--getting movies from when component is mounted--> 
+      /> <!-- display all the movies -->
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios'; // axios is a promise-based HTTP client for the browser and node.js
 import MovieBox from './MovieBox.vue';
 
 export default {
   name: 'MoviePage',
   components: {
-    MovieBox
+    MovieBox,
   },
-  data() {
-    return {
-      title: 'Movies from Database',
-      movies: [] // variable that will store movies that will be fetched from the API
-    };
+  props: {
+    movies: {
+      type: Array,
+      required: true,
+    },
   },
-  mounted() {
-    // get movies from API
-    axios.get('http://localhost:3000/api/movies')
-      .then(response => {
-        this.movies = response.data; // prop movies is updated with the data from the API
-      })
-      .catch(error => {
-        console.error('Erreur lors de la récupération des films:', error); // catches eventual errors
-      });
-  }
 };
 </script>
 

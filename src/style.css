@@ -15,6 +15,53 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh; /* page take all the height */
+  max-width: 1500px;
+  display: flex;
+  flex-direction: column; /* organization of elements in columns */
+}
+
+#app {
+  flex: 1; /* take space above footer */
+}
+
+.footer {
+  background: linear-gradient(135deg, #005eff, #2575fc);
+  background-size: 200% 200%;
+  animation: gradientMove 5s infinite alternate;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  color: white;
+  padding: 10px;
+  text-align: center;
+  width: 100%; /* footer take all the width */
+  padding-top: 30px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.footer-link {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s;
+}
+
+.footer-link:hover {
+  color: #dcdcdc;
+}
+
+.footer-credits {
+  font-size: 12px;
+  margin-top: 10px;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -22,14 +69,6 @@ a {
 }
 a:hover {
   color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
 }
 
 h1 {

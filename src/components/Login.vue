@@ -1,12 +1,10 @@
 <template>
     <div class="login-page">
-      <h1>Login Page</h1>
-      <p>Please login to continue.</p>
-  
+
       <form @submit.prevent="handleSubmit" class="login-form">
         <!--username field-->
+        <h2 class="title-login">CineAccount Login</h2>
         <div class="form-group">
-          <label for="username">Username:</label>
           <input
             id="username"
             v-model="username"
@@ -17,7 +15,6 @@
   
         <!--password field-->
         <div class="form-group">
-          <label for="password">Password:</label>
           <input
             type="password"
             id="password"
@@ -27,13 +24,13 @@
           />
         </div>
   
-        <!-- Bouton de soumission -->
+        <!-- submit button -->
         <div class="form-group">
           <button type="submit" class="login-button">Login</button>
         </div>
   
         <p class="register-link">
-          Don't have an account? <a href="/register">Register here</a>
+          Don't have an account? <a href="/register" @click="redirectToRegister()">Register here</a>
         </p>
       </form>
     </div>
@@ -59,6 +56,11 @@ export default {
       })
       .then(response => {
         if (response.data.success) {
+          const userDataUsername = response.data.username; // get user data from response
+          const userID = response.data.userID;
+          console.log("userdata : " + userDataUsername + userID);
+          localStorage.setItem('user', JSON.stringify(userDataUsername)); // using local storage to store user data
+          localStorage.setItem('userId', JSON.stringify(userID));
           this.$router.push("/home"); // push to home page (with user being logged in)
         } else {
           alert("Login failed: " + response.data.message);
@@ -69,7 +71,11 @@ export default {
         alert("wrong username or password");
       });
     },
+    redirectToRegister() {
+      this.$router.push('/register'); // redirect to route /register
+    },
   },
+  
 };
 </script>
 
@@ -84,6 +90,12 @@ export default {
   font-family: Arial, sans-serif;
 }
 
+.title-login{
+  margin: 10px;
+  color: #d0afff
+}
+
+
 h1 {
   color: #017bff;
   font-size: 2rem;
@@ -92,23 +104,32 @@ h1 {
 
 p {
   font-size: 1rem;
-  color: #666;
+  color: #000000;
   margin-bottom: 20px;
 }
 
 .login-form {
   width: 100%;
   max-width: 400px;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  align-items: center;
-  justify-content: center;
+  padding: 30px;
+  border-radius: 15px;
+  background: linear-gradient(45deg, #7e1de5, #2575fc); /* Default gradient */
+  background-size: 200% 200%; /* Expand gradient for animation */
+  animation: gradientMove 5s infinite alternate; /* Animation */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
+  align-items: center;
+  color: white;
+  /*transition: 0.5s ease-in-out;*/
 }
 
+/*
+.login-form:hover {
+  scale: 1.05;
+  transition: 0.5s ease-in-out;
+}
+*/
 
 .form-group {
   margin-bottom: 15px;
@@ -118,7 +139,7 @@ p {
 label {
   display: block;
   font-size: 1rem;
-  color: #333;
+  color: #c9c9c9;
 }
 
 input {
@@ -133,6 +154,7 @@ input {
 
 input:focus {
   border-color: #017bff;
+  border: 3px  #00ff11;
   outline: none;
 }
 
@@ -166,4 +188,3 @@ input:focus {
   text-decoration: underline;
 }
 </style>
-  

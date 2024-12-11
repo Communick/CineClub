@@ -1,3 +1,5 @@
+<!-- APP INITIALISATION IS ON APP.VUE - HERE TEST ONLY -->
+
 <template>
     <div id="app">
       <Header></Header>
@@ -5,7 +7,6 @@
       <LoginButton></LoginButton>
       <MoviePage></MoviePage>
       <Footer></Footer>
-  
     </div>
   </template>
   

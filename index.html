@@ -5,9 +5,68 @@
     <link rel="icon" type="image/x-icon" href="/src/assets/favicon.ico" /> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CineClub</title>
+
   </head>
   <body>
     <div id="app"></div>
+  
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="/home" class="footer-link">Home</a>
+        <a href="/aboutus" class="footer-link">About us</a>
+        <a href="/contact" class="footer-link">Contact</a>
+        <a href="/pdfmedia/policy.pdf" class="footer-link" target="_blank">Privacy Policy</a>
+      </div>
+      <p class="footer-credits">&copy; 2024 CineClub. All rights reserved.</p>
+    </footer>
+
+    <!-- go on top button -->
+    <button class="scroll-to-top" id="scrollToTopBtn" onclick="scrollToTop()">↑</button>
+
     <script type="module" src="/src/main.js"></script>
+
+    <script>
+      window.onscroll = function() {
+        const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) { // wait 300px
+          scrollToTopBtn.style.display = "block";
+        } else {
+          scrollToTopBtn.style.display = "none";
+        }
+      };
+
+      // go on top
+      function scrollToTop() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }
+    </script>
+
+<style>
+  .scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+    display: none; /* hidden by default */
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.5s;
+  }
+  .scroll-to-top:hover {
+    background-color: #0056b3;
+    transition: all 0.5s;
+  }
+</style>
   </body>
 </html>

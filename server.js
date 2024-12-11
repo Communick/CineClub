@@ -1,7 +1,7 @@
-import express from 'express';
-import mysql from 'mysql2';
+import express from 'express';  
 import cors from 'cors';
-import dotenv from 'dotenv';
+import registerRoutes from './routes/register.js';
+import db from './db/db.js';
 
 const app = express(); // create express app, used for accessing the database
 const port = 3000;
@@ -12,22 +12,6 @@ app.use(cors());
 // parse request as JSON
 app.use(express.json());
 
-dotenv.config(); // configure dotenv to store env variables
-
-// connecting to database
-const db = mysql.createConnection({
-  host: process.env.DB_HOST, // get the host from dotenv file
-  user: process.env.DB_USER, // same from dotenv file
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  port: process.env.DB_PORT
-});
-
-// check the connection to the database
-db.connect((err) => {
-  if (err) throw err; // return error if any
-  console.log('Connected to database');
-});
 
 // route to get all movies
 app.get('/api/movies', (req, res) => {
@@ -98,31 +82,190 @@ app.get('/api/movies/:title', (req, res) => { // get id of a movie by its title
   });
 });
 
+import bcrypt from 'bcrypt'; // for hashing password
+
 app.post('/api/login', (req, res) => {
   const { username, password } = req.body;
 
-  const query = 'SELECT * FROM users WHERE username = ? AND password = ?';
+  const query = 'SELECT * FROM users WHERE username = ?';
 
-  db.query(query, [username, password], (err, results) => {
+  db.query(query, [username], (err, results) => {
     if (err) {
-      res.status(500).json({ error: 'database error' });
+      res.status(500).json({ error: 'Database error' });
       return;
     }
 
     if (results.length > 0) {
-      // if user pass and username are correct
-      res.json({ success: true, message: 'Login successful!' });
-      console.log('login successful');
+      const hashedPassword = results[0].password;
 
-      // this.$router.push("/home"); // DONT put this in the server !!
+      // check password
+      bcrypt.compare(password, hashedPassword, (err, isMatch) => {
+        if (err) {
+          res.status(500).json({ error: 'Error comparing passwords' });
+          return;
+        }
+
+        if (isMatch) {
+          res.json({
+            success: true,
+            message: 'Login successful!',
+            username: username,
+            userID: results[0].id
+          });
+          console.log('Login successful');
+        } else {
+          res.status(401).json({ success: false, message: 'Invalid username or password' });
+          console.log('Login failed');
+        }
+      });
     } else {
-      // if not correct
-      console.log('login failed');
-      res.status(401).json({ success: false, message: 'invalid username or password' });
+      res.status(401).json({ success: false, message: 'Invalid username or password' });
+      console.log('Login failed');
     }
   });
 });
 
+// get users informations (username and created account data)
+app.post('/api/users', (req, res) => {
+  const { username } = req.body;
+
+  const query = 'SELECT id, username, account_created_date FROM users WHERE username = ?';
+
+  db.query(query, [username], (err, results) => {
+    if (err) {
+      res.status(500).json({ error: 'Database error' });
+      return;
+    }
+
+    if (results.length > 0) {
+      res.json(results[0]); // return the user data
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  });
+});
+
+
+app.get('/api/user/:userId/favorites', (req, res) => {
+  const userId = req.params.userId; // get the user id from the request URL
+  
+  const query = `
+    SELECT movies.title, movies.poster, movies.description, movies.longdescription
+    FROM movies
+    JOIN user_favorites ON movies.id = user_favorites.movie_id
+    WHERE user_favorites.user_id = ?
+  `; // query to find all the movies a given user has starred
+  
+  db.query(query, [userId], (err, results) => {
+    if (err) {
+      return res.status(500).json({ message: 'Error retrieving starred' });
+    }
+    res.json(results);
+  });
+});
+
+app.get('/api/user_favorites', (req, res) => {
+  const userId = req.query.userId; // userId should be sent as a query parameter
+  if (!userId) {
+    res.status(400).send('userId is required');
+    return;
+  }
+  db.query('SELECT count(*) as count FROM user_favorites WHERE user_id = ?', [userId], (err, results) => {
+    if (err) {
+      console.error("Database error:", err);
+      res.status(500).send('Error from database');
+      return;
+    }
+    res.json(results[0]); // send the count as a JSON object
+  });
+});
+
+app.post('/api/add-favorite', (req, res) => {
+  const { user_id, movie_id } = req.body;
+  const query = 'INSERT INTO user_favorites (user_id, movie_id) VALUES (?, ?)';
+  db.query(query, [user_id, movie_id], (err, result) => {
+    if (err) {
+      console.error('Error when adding to favorites', err);
+      return res.status(500).send('Server error');
+    }
+    res.status(200).send('Movie added to favorites');
+  });
+});
+
+
+app.post('/api/remove-favorite', (req, res) => {
+  const { user_id, movie_id } = req.body;
+  const query = 'DELETE FROM user_favorites WHERE user_id = ? AND movie_id = ?';
+  db.query(query, [user_id, movie_id], (err, result) => {
+    if (err) {
+      console.error('error when add to favorites', err);
+      return res.status(500).send('server error');
+    }
+    res.status(200).send('movie deleted from favorites');
+  });
+});
+
+app.get('/api/get-movie-id', (req, res) => {
+  const { title } = req.query; // get URL parameters using req.query
+  const query = 'SELECT id FROM movies WHERE title = ?';
+
+  console.log('ACCESS to MOVIE ID, title:', title);
+
+  if (!title) {
+    res.status(400).send({ error: 'Le paramètre "title" est requis.' });
+    return;
+  }
+
+  db.execute(query, [title], (err, results) => {
+    if (err) {
+      console.error('Erreur SQL:', err);
+      res.status(500).send({ error: 'Database error' });
+      return;
+    }
+
+    if (results.length > 0) {
+      console.log('Movie id found:', results[0].id);
+      res.json({ id: results[0].id });
+    } else {
+      console.log('Movie not found');
+      res.status(404).send({ error: 'Movie not found' });
+    }
+  });
+});
+
+app.get('/api/user-favorites/:userId', (req, res) => {
+  const { userId } = req.params; // get URL parameters using req.query
+  const query = `
+    SELECT uf.movie_id, m.title, m.poster, m.description, m.longdescription
+    FROM user_favorites uf
+    INNER JOIN movies m ON uf.movie_id = m.id
+    WHERE uf.user_id = ?
+  `;
+
+  if (!userId) {
+    res.status(400).send({ error: 'parameter "userId" is required' });
+    return;
+  }
+
+  db.execute(query, [userId], (err, results) => {
+    if (err) {
+      console.error('SQL error', err);
+      res.status(500).send({ error: 'db error' });
+      return;
+    }
+
+    if (results.length > 0) {
+      res.json({ movies: results }); // return all the movies in JSON format
+    } else {
+      res.status(404).send({ error: 'No movies found for this user' });
+    }
+  });
+});
+
+
+
+app.use('/api/users', registerRoutes);
+app.use('/api', registerRoutes);
 
 // launch the server
 app.listen(port, () => {

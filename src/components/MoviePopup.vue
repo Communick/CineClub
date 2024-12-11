@@ -1,7 +1,7 @@
 <template>
   <div @click="$emit('close')" class="popup-overlay"> <!--send action to its parent component which is moviebox when overlay clicked to close without the button--> 
     <div @click.stop class="popup-content"> <!--stop the propagation of the click event to the overlay-->
-      <img :src="movie.poster" alt="Poster" class="popup-image" @click="watchMovie(movie.name)" /> <!--image for poster-->
+      <img :src="movie.poster" alt="Poster" class="popup-image"/> <!--image for poster-->
       <div class="popup-details">
         <h2>{{ movie.title }}</h2> <!--displaying all the movie informations--> 
         <p>{{ movie.longdescription }}</p>
@@ -37,7 +37,8 @@ export default {
   },
   data() {
     return {
-      actors: [] // list for all actors corresponding to this film
+      actors: [], // list for all actors corresponding to this film
+      star: '☆'
     };
   },
   mounted() {

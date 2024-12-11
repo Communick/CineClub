@@ -1,15 +1,23 @@
 <template>
-    <button class="login-button" @click="redirectToLogin">
-      Login
+    <button class="login-button" @click="redirectToRoute"> <!-- simple html button -->
+      {{ buttonText }}
     </button>
   </template>
   
   <script>
   export default {
     name: "LoginButton",
+    props: {
+        buttonText: "Login",
+    },
     methods: {
-      redirectToLogin() {
+      redirectToRoute() {
+        if (this.buttonText === "Login"){
         this.$router.push('/login'); // redirect to route /login
+        }
+        else if (this.buttonText === "My account"){
+          this.$router.push('/account'); // redirect to route /account
+        }
       },
     },
   };
