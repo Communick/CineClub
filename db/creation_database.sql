@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS cineclub3; -- create db if not exist
+CREATE DATABASE IF NOT EXISTS cineclub; -- create db if not exist
 
-USE cineclub3; -- use it
+USE cineclub; -- use it
 
 CREATE TABLE IF NOT EXISTS movies (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -13,8 +13,7 @@ CREATE TABLE IF NOT EXISTS movies (
 CREATE TABLE IF NOT EXISTS actors (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    photo VARCHAR(255) NOT NULL,
-    actorDescription TEXT NOT NULL
+    photo VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS movie_actor (
@@ -104,16 +103,67 @@ INSERT INTO movies (title, poster, description, longdescription) VALUES
 
 
 
-INSERT INTO actors (name, photo, actorDescription) VALUES
-("Hayden Christensen", "../assets/actors/hc.png", "Hayden Christensen is a Canadian actor best known for his iconic portrayal of Anakin Skywalker and Darth Vader in the Star Wars prequel trilogy. Born on April 19, 1981, in Vancouver, Canada, Christensen's acting career began in his early teens with roles on Canadian television. 1  He gained international recognition for his performance in Star Wars: Episode II - Attack of the Clones and Star Wars: Episode III - Revenge of the Sith. 2  Beyond Star Wars, Christensen has appeared in films such as The Virgin Suicides, Life as a House, and Shattered Glass. 3  In recent years, he has reprised his role as Darth Vader in the Disney+ series Obi-Wan Kenobi and Ahsoka."),
-("Ewan McGregor", "../assets/actors/ewan.png", "Ewan McGregor is a renowned Scottish actor, known for his versatility and captivating performances. Born on March 31, 1971, in Perth, Scotland, McGregor gained international recognition for his portrayal of Obi-Wan Kenobi in the Star Wars prequel trilogy. His career has been marked by diverse roles in critically acclaimed films such as Trainspotting, Moulin Rouge!, and Fargo. Beyond acting, McGregor is also a talented musician and has ventured into directing with films like American Pastoral. His dedication to his craft and his ability to embody a wide range of characters have solidified his status as one of the most respected actors of his generation."),
-("Samuel L. Jackson", "../assets/actors/samueljackson.png", "Samuel L. Jackson, one of the most recognizable and prolific actors of his generation, has left an indelible mark on Hollywood. Born on December 21, 1948, in Washington, D.C., Jackson's journey to stardom was marked by a unique blend of talent, charisma, and a distinctive style. After studying at Morehouse College, Jackson's early career involved stage acting and smaller film roles. His breakthrough came in the 1990s with iconic performances in films like 'Pulp Fiction,' 'Jurassic Park,' and 'Die Hard with a Vengeance.' His collaborations with directors like Quentin Tarantino solidified his status as a leading man. Jackson's versatility is evident in his diverse roles, ranging from intense and gritty characters to charismatic and humorous ones. He has appeared in numerous blockbuster franchises, including 'Star Wars' and the Marvel Cinematic Universe. His distinctive voice and memorable quotes have become synonymous with his on-screen persona. Beyond his acting career, Jackson is also a vocal advocate for social justice and has used his platform to raise awareness about important issues. His impact on popular culture is undeniable, and his legacy as one of the greatest actors of all time is firmly established."),
-("Natalie Portman", "../assets/actors/natalieportman.png", "Natalie Portman, born Natalie Hershlag on June 9, 1981, in Jerusalem, Israel, is a renowned actress, producer, and director. Her career has spanned decades, marked by both critically acclaimed performances and blockbuster roles. Portman's breakthrough came in 1994 with her role in the French film Léon: The Professional. She gained international recognition for portraying Queen Padmé Amidala in the Star Wars prequel trilogy. Her versatility as an actress is evident in her diverse roles, ranging from the intellectual and ambitious character in Closer to the tormented ballerina in Black Swan. In 2011, Portman won the Academy Award for Best Actress for her performance in Black Swan. She has also been nominated for multiple Golden Globe Awards and Screen Actors Guild Awards. Beyond her acting career, Portman is a dedicated advocate for animal rights and social justice. She is also a graduate of Harvard University, where she studied psychology."),
-("Ian McDiarmid", "../assets/actors/iand.png", "Ian McDiarmid, a renowned Scottish actor and director, is best known for his iconic portrayal of Emperor Palpatine/Darth Sidious in the Star Wars saga. Born on August 11, 1944, in Carnoustie, Scotland, McDiarmid's career spans both stage and screen. Before his cinematic fame, McDiarmid established himself as a respected stage actor, performing in numerous Shakespearean plays and other theatrical productions. His talent and dedication earned him critical acclaim and several awards, including an Olivier Award and a Tony Award. While his role as the sinister Emperor Palpatine is undoubtedly his most recognizable, McDiarmid has also appeared in a variety of other films and television series, showcasing his versatility as an actor. His ability to embody complex and often villainous characters with nuance and depth has solidified his place as one of the most respected actors of his generation."),
-("Christopher Lee", "../assets/actors/christopherlee.png", "Sir Christopher Lee, a towering figure in the world of cinema, was born on May 27, 1922, in Belgravia, London. With a career spanning over six decades, he became renowned for his deep, commanding voice and his ability to portray iconic villains. Lee's most famous roles include the enigmatic Count Dracula in numerous Hammer Horror films, the malevolent wizard Saruman in Peter Jackson's The Lord of the Rings trilogy, and the enigmatic Count Dooku in the Star Wars prequel trilogy. His imposing stature and intense presence made him a natural choice for such sinister characters. Beyond his villainous roles, Lee also showcased his versatility in a wide range of genres. He appeared in countless films, including The Man with the Golden Gun, The Wicker Man, and Sleepy Hollow. Knighted for his services to drama and charity in 2009, Sir Christopher Lee left an enduring legacy as one of the most iconic and respected actors of all time. He passed away on June 7, 2015, at the age of 93."),
-("Daniel Radcliffe", "../assets/actors/danielr.png", "Daniel Radcliffe, born on July 23, 1989, in London, England, is an acclaimed actor best known for his iconic portrayal of the young wizard Harry Potter in the globally successful film series. Radcliffe's career skyrocketed at the age of 11 when he was cast as Harry Potter, a role that would define his early years. Throughout the decade-long series, he captivated audiences worldwide with his talent and dedication. However, Radcliffe's ambition extended beyond the magical world of Harry Potter. He sought to challenge himself with diverse roles, both on stage and screen. He has appeared in a range of films, including the psychological horror Horns and the comedy Swiss Army Man. Radcliffe has also made significant strides in theater, starring in productions like Equus, How to Succeed in Business Without Really Trying, and The Cripple of Inishmaan. His performances have earned him critical acclaim and prestigious awards, including a Tony Award. Beyond his acting career, Radcliffe is known for his philanthropic work and his openness about personal struggles, particularly with alcohol addiction. His journey of recovery and his willingness to share his experiences have inspired many."),
-("Rupert Grint", "../assets/actors/rupertgrint.png", "Rupert Grint, born on August 24, 1988, in Harlow, England, is an English actor best known for his role as Ron Weasley in the Harry Potter film series. Cast at the age of 11, Grint portrayed the loyal and often comedic friend of Harry Potter throughout all eight films. Beyond his iconic role, Grint has continued to pursue acting, appearing in various films and television series. He has showcased his versatility, taking on diverse characters and exploring different genres. In recent years, Grint has also ventured into producing and has been involved in several projects. He remains a beloved figure in the entertainment industry, recognized for his talent, charm, and down-to-earth personality."),
-("Emma Watson", "../assets/actors/emmawatson.png", "Emma Watson, born on April 15, 1990, in Paris, France, is an acclaimed English actress and activist. She rose to international fame for her portrayal of Hermione Granger in the Harry Potter film series, captivating audiences with her intelligence, wit, and loyalty. Beyond her iconic role, Watson has successfully transitioned into diverse roles, demonstrating her versatility as an actress. She has starred in films like 'The Perks of Being a Wallflower,' 'Beauty and the Beast,' and 'Little Women,' showcasing her range and talent. In addition to her acting career, Watson is a passionate advocate for gender equality and women's rights. She has served as a UN Women Goodwill Ambassador, promoting feminist ideals and inspiring young people around the world. Watson's influence extends beyond the screen, making her a role model for many and a powerful voice for positive change.");
+
+INSERT INTO actors (id, name, photo) VALUES
+(1, 'Hayden Christensen', '../assets/actors/hc.png'),
+(2, 'Ewan McGregor', '../assets/actors/ewan.png'),
+(3, 'Samuel L. Jackson', '../assets/actors/samueljackson.png'),
+(4, 'Natalie Portman', '../assets/actors/natalieportman.png'),
+(5, 'Ian McDiarmid', '../assets/actors/iand.png'),
+(6, 'Christopher Lee', '../assets/actors/christopherlee.png'),
+(7, 'Daniel Radcliffe', '../assets/actors/danielr.png'),
+(8, 'Rupert Grint', '../assets/actors/rupertgrint.png'),
+(9, 'Emma Watson', '../assets/actors/emmawatson.png'),
+(10, 'Joachim Phoenix', '../assets/actors/joaquinphoenix.png'),
+(11, 'Lee Sun-Kyun', '../assets/actors/leesunkyun.png'),
+(12, 'Jack Black', '../assets/actors/jack_black.png'),
+(13, 'Pierre Niney', '../assets/actors/pierre_niney.png'),
+(14, 'Russell Crowe', '../assets/actors/russell_crowe.png'),
+(15, 'Mena Massaoud', '../assets/actors/mena_massoud.png'),
+(16, 'Christian Bale', '../assets/actors/christian_bale.png'),
+(17, 'Ryan Gosling', '../assets/actors/ryan_gosling.png'),
+(18, 'Stephen Chow', '../assets/actors/stephen_chow.png'),
+(19, 'Tom Hanks', '../assets/actors/tom_hanks.png'),
+(20, 'Timothée Chalamet', '../assets/actors/timothee_chalamet.png'),
+(21, 'Henry Thomas', '../assets/actors/henry_thomas.png'),
+(22, 'Tom Cruise', '../assets/actors/tom_cruise.png'),
+(23, 'Andrew Stanton', '../assets/actors/andrew_stanton.png'),
+(24, 'Ray Liotta', '../assets/actors/ray_liotta.png'),
+(25, 'Octavia Spencer', '../assets/actors/octavia_spencer.png'),
+(26, 'Jennifer Lawrence', '../assets/actors/jennifer_lawrence.png'),
+(27, 'Matthew McConaughey', '../assets/actors/matthew_mcconaughey.png'),
+(28, 'Bill Skarsgård', '../assets/actors/bill_skarsgard.png'),
+(29, 'Richard Dreyfuss', '../assets/actors/richard_dreyfuss.png'),
+(30, 'Laura Dern', '../assets/actors/laura_dern.png'),
+(31, 'Ralph Macchio', '../assets/actors/ralph_macchio.png'),
+(32, 'Peter Jackson', '../assets/actors/peter_jackson.png'),
+(33, 'James Earl Jones', '../assets/actors/james_earl_jones.png'),
+(34, 'Keanu Reeves', '../assets/actors/keanu_reeves.png'),
+(35, 'Javier Bardem', '../assets/actors/javier_bardem.png'),
+(36, 'Jon Heder', '../assets/actors/jon_heder.png'),
+(37, 'George Clooney', '../assets/actors/george_clooney.png'),
+(38, 'Nicole Kidman', '../assets/actors/nicole_kidman.png'),
+(39, 'Walker Scobell', '../assets/actors/walker_scobell.png'),
+(40, 'Johnny Depp', '../assets/actors/johnny_depp.png'),
+(41, 'John Krasinski', '../assets/actors/john_krasinski.png'),
+(42, 'Tom Selleck', '../assets/actors/tom_selleck.png'),
+(43, 'Lindsey Collins', '../assets/actors/lindsey_collins.png'),
+(44, 'Sylvester Stallone', '../assets/actors/sylvester_stallone.png'),
+(45, 'Liam Neeson', '../assets/actors/liam_neeson.png'),
+(46, 'Mike Myers', '../assets/actors/mike_myers.png'),
+(47, 'Arnold Schwarzenegger', '../assets/actors/arnold_schwarzenegger.png'),
+(48, 'Clint Eastwood', '../assets/actors/clint_eastwood.png'),
+(49, 'Pete Docter', '../assets/actors/pete_docter.png'),
+(50, 'Hugo Weaving', '../assets/actors/hugo_weaving.png'),
+(51, 'Leonardo DiCaprio', '../assets/actors/leonardo_di_caprio.png'),
+(52, 'Gal Gadot', '../assets/actors/gal_gadot.png'),
+(53, 'Hugh Jackman', '../assets/actors/hugh_jackman.png'),
+(54, 'Rebecca Romijn', '../assets/actors/rebecca_romijn.png'),
+(55, 'Zooey Deschanel', '../assets/actors/zooey_deschanel.png'),
+(56, 'Meg Ryan', '../assets/actors/meg_ryan.png'),
+(57, 'Jake Gyllenhaal', '../assets/actors/jake_gyllenhaal.png'),
+(58, 'Ginnifer Goodwin', '../assets/actors/ginnifer_goodwin.png');
+
 
 INSERT INTO movie_actor (movie_id, actor_id) VALUES
 (1, 1),
@@ -124,7 +174,64 @@ INSERT INTO movie_actor (movie_id, actor_id) VALUES
 (1, 6),
 (2, 7),
 (2, 8),
-(2, 9);
+(2, 9),
+(3, 10),
+(4, 11),
+(5, 12),
+(6, 13),
+(7, 14),
+(19, 14),
+(8, 15),
+(9, 16),
+(10, 17),
+(13, 17),
+(30, 17),
+(11, 18),
+(12, 19),
+(18, 19),
+(14, 20),
+(15, 21),
+(16, 22),
+(32, 22),
+(50, 22),
+(17, 23),
+(20, 24),
+(21, 25),
+(22, 26),
+(23, 27),
+(24, 28),
+(25, 29),
+(26, 30),
+(27, 31),
+(28, 32),
+(29, 33),
+(31, 34),
+(33, 35),
+(34, 36),
+(35, 37),
+(36, 38),
+(37, 39),
+(38, 40),
+(39, 41),
+(40, 42),
+(41, 43),
+(42, 44),
+(43, 45),
+(44, 46),
+(46, 47),
+(47, 48),
+(48, 49),
+(49, 50),
+(45, 51),
+(51, 51),
+(52, 52),
+(53, 53),
+(54, 54),
+(55, 55),
+(56, 56),
+(57, 57),
+(58, 58);
+
 
 INSERT INTO users (username, password) VALUES
 ("admin", "admin");
